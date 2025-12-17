@@ -19,7 +19,6 @@ st.set_page_config(
 # ==========================================
 # 2. THEME ENGINE: ONYX & NEON
 # ==========================================
-# We define the CSS in a variable to avoid syntax errors
 CEO_THEME_CSS = """
     <style>
     /* 1. BACKGROUND & FONTS */
@@ -184,8 +183,8 @@ if page == "🚀 MISSION CONTROL":
         </div>
         """, unsafe_allow_html=True)
 
-    # Placeholder image for visual appeal
-    st.image("https://viso.ai/wp-content/uploads/2021/01/computer-vision-deep-learning-applications.jpg", use_container_width=True)
+    # UPDATED: use_column_width for compatibility
+    st.image("https://viso.ai/wp-content/uploads/2021/01/computer-vision-deep-learning-applications.jpg", use_column_width=True)
 
 # ==========================================
 # 6. PAGE: LIVE VISION (CAMERA)
@@ -193,7 +192,6 @@ if page == "🚀 MISSION CONTROL":
 elif page == "🎥 LIVE VISION":
     st.title("🎥 LIVE SURVEILLANCE FEED")
     
-    # --- EDUCATIONAL EXPANDER ---
     with st.expander("ℹ️ UNDERSTANDING THE LIVE FEED"):
         st.markdown("""
         This module connects directly to your webcam using **OpenCV**.
@@ -236,8 +234,9 @@ elif page == "🎥 LIVE VISION":
                 
                 # DRAW
                 annotated = results[0].plot()
-                # Convert BGR to RGB for Streamlit
-                vid_window.image(cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB), use_container_width=True)
+                
+                # UPDATED: use_column_width for compatibility
+                vid_window.image(cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB), use_column_width=True)
                 
                 # STATS
                 fps_text.metric("INFERENCE SPEED", f"{int(fps)} FPS")
@@ -251,7 +250,6 @@ elif page == "🎥 LIVE VISION":
 elif page == "🧬 FORENSIC LAB":
     st.title("🧬 FORENSIC EVIDENCE ANALYSIS")
     
-    # --- EDUCATIONAL EXPANDER ---
     with st.expander("🧠 THE LOGIC BEHIND DETECTION"):
         st.markdown("""
         **Why do we need a custom logic?**
@@ -274,13 +272,13 @@ elif page == "🧬 FORENSIC LAB":
         arr = np.array(img.convert('RGB'))
         
         with c1:
-            st.image(img, caption="RAW FOOTAGE", use_container_width=True)
+            # UPDATED: use_column_width for compatibility (This was the error line)
+            st.image(img, caption="RAW FOOTAGE", use_column_width=True)
             
         if st.button("🚀 INITIATE DEEP SCAN"):
             with st.spinner("Triangulating Threat Vectors..."):
                 # 1. RUN AI
                 res = custom_model(arr, conf=conf)
-                # Fallback if no objects found
                 if len(res[0].boxes) == 0: 
                     res = general_model(arr, conf=conf)
                 
@@ -309,7 +307,7 @@ elif page == "🧬 FORENSIC LAB":
                             cv2.putText(final_img, cls, (x1, y1-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (100, 255, 100), 1)
 
                 with c2:
-                    st.image(final_img, caption="AI PROCESSED OUTPUT", use_container_width=True)
+                    st.image(final_img, caption="AI PROCESSED OUTPUT", use_column_width=True)
                     
                 st.markdown("---")
                 if status == "DISTRACTED":
