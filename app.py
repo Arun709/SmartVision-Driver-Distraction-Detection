@@ -5,6 +5,7 @@ from ultralytics import YOLO
 from PIL import Image
 import os
 import time
+import tempfile
 
 # ==========================================
 # 1. PAGE CONFIGURATION
@@ -183,22 +184,20 @@ if page == "🚀 MISSION CONTROL":
         </div>
         """, unsafe_allow_html=True)
 
-    # UPDATED: use_column_width for compatibility
+    # Use column width for image scaling
     st.image("https://viso.ai/wp-content/uploads/2021/01/computer-vision-deep-learning-applications.jpg", use_column_width=True)
 
 # ==========================================
-# 6. PAGE: LIVE VISION (CAMERA)
+# 6. PAGE: LIVE VISION (SMART HYBRID)
 # ==========================================
 elif page == "🎥 LIVE VISION":
     st.title("🎥 LIVE SURVEILLANCE FEED")
     
     with st.expander("ℹ️ UNDERSTANDING THE LIVE FEED"):
         st.markdown("""
-        This module connects directly to your webcam using **OpenCV**.
-        
-        *   **Real-Time Loop:** The code captures frames one by one in an infinite loop.
-        *   **Inference:** Each frame is sent to the Neural Network.
-        *   **FPS (Frames Per Second):** Measures how fast the AI is "thinking". Higher is better.
+        **Hybrid Mode Active:**
+        1.  **Local Hardware:** Tries to connect to a USB/Integrated Webcam.
+        2.  **Cloud Fallback:** If no camera is found (Cloud Server), switches to **Simulation Mode** using video files.
         """)
 
     c_main, c_side = st.columns([3, 1])
@@ -208,6 +207,7 @@ elif page == "🎥 LIVE VISION":
         run = st.checkbox("ACTIVATE SENSORS", value=False)
         st.markdown("---")
         fps_text = st.empty()
+        mode_text = st.empty()
         
     with c_main:
         vid_window = st.empty()
@@ -219,13 +219,39 @@ elif page == "🎥 LIVE VISION":
             """, unsafe_allow_html=True)
 
     if run:
+        # 1. TRY CAMERA FIRST
         cap = cv2.VideoCapture(0)
-        if not cap.isOpened(): 
-            st.error("HARDWARE ERROR: Camera Locked")
+        
+        # 2. CHECK IF CAMERA FAILED (Cloud Environment)
+        if not cap.isOpened():
+            mode_text.warning("☁️ CLOUD MODE")
+            cap.release()
+            
+            # --- FALLBACK: SIMULATION MODE ---
+            with c_main:
+                st.info("⚠️ Cloud Server Detected (No Webcam). Switching to Simulation Mode.")
+                sim_file = st.file_uploader("Upload Fleet Dashcam Video (MP4)", type=['mp4', 'avi', 'mov'])
+            
+            if sim_file:
+                # Save temp file for OpenCV
+                tfile = tempfile.NamedTemporaryFile(delete=False) 
+                tfile.write(sim_file.read())
+                cap = cv2.VideoCapture(tfile.name)
+            else:
+                cap = None
         else:
+            mode_text.success("🟢 LOCAL DEVICE")
+
+        # 3. RUN THE LOOP
+        if cap is not None and cap.isOpened():
             while run:
                 ret, frame = cap.read()
-                if not ret: break
+                if not ret: 
+                    st.write("End of stream")
+                    break
+                
+                # Resize for performance and UI consistency
+                frame = cv2.resize(frame, (640, 480))
                 
                 t0 = time.time()
                 # AI INFERENCE
@@ -234,8 +260,6 @@ elif page == "🎥 LIVE VISION":
                 
                 # DRAW
                 annotated = results[0].plot()
-                
-                # UPDATED: use_column_width for compatibility
                 vid_window.image(cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB), use_column_width=True)
                 
                 # STATS
@@ -272,7 +296,6 @@ elif page == "🧬 FORENSIC LAB":
         arr = np.array(img.convert('RGB'))
         
         with c1:
-            # UPDATED: use_column_width for compatibility (This was the error line)
             st.image(img, caption="RAW FOOTAGE", use_column_width=True)
             
         if st.button("🚀 INITIATE DEEP SCAN"):
