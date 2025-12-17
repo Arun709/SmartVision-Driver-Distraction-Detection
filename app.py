@@ -11,7 +11,7 @@ import tempfile
 # 1. PAGE CONFIGURATION
 # ==========================================
 st.set_page_config(
-    page_title="PatrolIQ: Ultimate",
+    page_title="SmartVision AI: Ultimate",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -122,7 +122,7 @@ except Exception as e:
 # 4. SIDEBAR NAVIGATION
 # ==========================================
 with st.sidebar:
-    st.markdown("## 🛡️ PatrolIQ")
+    st.markdown("## 🛡️ SmartVision AI")
     st.caption("AI DRIVER SAFETY SYSTEM")
     st.markdown("---")
     
@@ -385,3 +385,4 @@ elif page == "🧬 FORENSIC LAB":
                             <p>Driver is focused. No distractions identified.</p>
                         </div>
                         """, unsafe_allow_html=True)
+
