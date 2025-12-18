@@ -1,0 +1,138 @@
+# SmartVision Project - Git Ignore Configuration
+# Ignore large model weights and unnecessary files
+
+# ============================================
+# MODEL WEIGHTS (Large Files)
+# ============================================
+# Downloaded on first run - exclude from repo
+*.pt          # PyTorch model files
+*.pth         # PyTorch checkpoint files
+*.onnx        # ONNX format models
+*.weights     # Custom weight formats
+models/*.pt   # Specific to models directory
+models/*.pth
+
+# ============================================
+# PYTHON & VIRTUAL ENVIRONMENT
+# ============================================
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+PIPFILE.lock
+
+# ============================================
+# JUPYTER & IDE
+# ============================================
+.ipynb_checkpoints/
+*.ipynb
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+.vscode/settings.json
+
+# ============================================
+# DATA & OUTPUTS
+# ============================================
+data/
+*.csv
+*.xlsx
+logs/
+runs/
+outputs/
+*.log
+
+# ============================================
+# STREAMLIT
+# ============================================
+.streamlit/
+.streamlit/secrets.toml
+*.streamlit
+
+# ============================================
+# TEMPORARY & CACHE FILES
+# ============================================
+.cache/
+*.cache
+.temp/
+*.tmp
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# ============================================
+# OS SPECIFIC
+# ============================================
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# ============================================
+# PROJECT SPECIFIC
+# ============================================
+*.video      # Video files (if stored locally)
+*.avi
+*.mp4
+*.mov
+*.flv
+
+# Webcam/camera test files
+test_output/
+results/
+detections/
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+.env
+.env.local
+.env.*.local
+
+# ============================================
+# NOTES
+# ============================================
+# Model weights (.pt files) will auto-download on first run
+# To manually add weights without committing:
+# 1. Add to .gitignore
+# 2. Add to README.md download section
+# 3. Users download separately
+#
+# For Git LFS (if repo size becomes issue):
+# git lfs install
+# git lfs track "*.pt"
+# git add .gitattributes
