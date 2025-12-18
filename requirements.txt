@@ -1,12 +1,49 @@
-streamlit==1.38.0
-ultralytics
-opencv-python-headless==4.5.5.64
-Pillow
-numpy<2.0
-pandas==2.0.2
-matplotlib==3.8.0
-scikit-learn==1.3.0
-seaborn==0.13.0
-datasets==2.19.0
-torch==2.1.2
-streamlit-webrtc
+# SmartVision - Driver Distraction Detection System
+# Python 3.10+ Required
+# Install: pip install -r requirements.txt
+
+# ============================================
+# CORE DEPENDENCIES
+# ============================================
+
+# Web Framework & UI
+streamlit>=1.28.0,<2.0.0
+streamlit-webrtc>=0.47.0
+
+# Object Detection & Vision
+ultralytics>=8.0.0
+yolo>=0.0.20
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision - Use headless version for server deployment
+opencv-python-headless>=4.8.0,<5.0.0
+
+# Data Processing
+numpy>=1.23.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+scipy>=1.10.0
+
+# Machine Learning & Utilities  
+scikit-learn>=1.3.0
+Pillow>=10.0.0
+matplotlib>=3.7.0
+
+# ============================================
+# DEVELOPMENT & UTILITY DEPENDENCIES
+# ============================================
+
+# Image & Data Processing
+datasets>=2.19.0
+seaborn>=0.12.0
+
+# Deep Learning Support
+scikit-image>=0.21.0
+
+# ============================================
+# NOTES
+# ============================================
+# - For Windows/Mac with GPU: Install torch from pytorch.org
+# - For deployment without UI, remove streamlit dependencies
+# - Model weights download automatically on first run
+# - See README.md for detailed installation instructions
