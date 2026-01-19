@@ -17,7 +17,7 @@ torch>=2.0.0
 torchvision>=0.15.0
 
 # Computer Vision - Use headless version for server deployment
-opencv-python-headless>=4.8.0,<5.0.0
+opencv-python-headless
 
 # Data Processing
 numpy>=1.23.0,<2.0.0
@@ -47,3 +47,4 @@ scikit-image>=0.21.0
 # - For deployment without UI, remove streamlit dependencies
 # - Model weights download automatically on first run
 # - See README.md for detailed installation instructions
+
