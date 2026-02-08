@@ -324,8 +324,8 @@ This project is licensed under the **GPL-3.0 License** - see the [LICENSE](LICEN
 
 **Arunachalam Kannan**
 - GitHub: [@Arun709](https://github.com/Arun709)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/arunachalam-kannan)
-- Email: your.email@example.com
+- LinkedIn: [Check_out_my_Linkedin](www.linkedin.com/in/arunachalam-kannan-data-scientist)
+- Email: arunchlmk@gmail.com
 
 ---
 
